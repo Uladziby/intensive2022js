@@ -40,3 +40,27 @@ function selectFromInterval(arrNumbers, firstNum, secondNum) {
     }
     return resultArr;
 }
+
+
+let myIterable = {
+    from: 1,
+    to: 5
+};
+
+myIterable[Symbol.iterator] = function () {
+    if (typeof this.from !== 'number') throw new Error('From must be  a number');
+    if (typeof this.to !== 'number') throw new Error('To must be  a number')
+    if (this.from > this.to) throw new Error('From cannot less than To')
+  
+    return {
+        current: this.from,
+        last: this.to,
+        next() {
+            if (this.current <= this.last) {
+                return { done: false, value: this.current++ };
+            } else {
+                return { done: true };
+            }
+        }
+    };
+};
